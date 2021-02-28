@@ -1,0 +1,40 @@
+
+int main()
+{
+    long long int  a=100;
+    long long int b=99;
+    long long int c[200];
+    long long int c_index=-1;
+    while(a/10>0)
+    {
+        c[++c_index]=a%10;
+        a=a/10;
+    }
+    c[++c_index]=a%10;
+    for(int d=b;d>=2;d--)
+    {
+        long long int temp=0,x;
+        for(int j=0;j<=c_index;j++)
+        {
+            x=c[j]*d+temp;
+            temp=x/10;
+            c[j]=x%10;
+        }
+        while(temp!=0)
+        {
+            c[++c_index]=temp%10;
+            temp=temp/10;
+        }
+    }
+
+    for(int j=c_index;j>=0;j--)
+    {
+        cout<<c[j];
+    }
+    cout<<"\n\n\n"<<c_index;
+
+    string s="93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000";
+    cout<<"\n\n"<<s.size();
+}
+
+//toturial link :   http://blog.codechef.com/2009/07/02/tutorial-for-small-factorials/

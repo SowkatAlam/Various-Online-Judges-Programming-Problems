@@ -1,0 +1,105 @@
+/*
+*************************************************
+*                                               *
+*                Sowkat ALam                    *
+*                                               *
+*    Email = sowkat.alam07@gmail.com            *
+*                                               *
+*                 Bangladesh                    *
+*                                               *
+*************************************************
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef vector<int>vi;
+
+#define endl '\n'
+#define mp make_pair
+#define pb push_back
+#define pi acos(-1.0)
+#define mod 1000000007
+#define ll long long int
+#define dsort(c) sort(all(c))
+#define sci(x) scanf("%d",&x)
+#define scc(x) scanf("%c",&x)
+#define scd(x) scanf("%lf",&x)
+#define sz(x) ((int) (x).size())
+#define all(c) c.begin(), c.end()
+#define ull unsigned long long int
+#define read(x) freopen(x,"r",stdin)
+#define sci2(x,y) scanf("%d%d",&x,&y)
+#define scc2(x,y) scanf("%c%c",&x,&y)
+#define write(x) freopen(x,"w",stdout)
+#define dset(x) memset(x,-1,sizeof(x))
+#define scd2(x,y) scanf("%lf%lf",&x,&y)
+#define dclear(x) memset(x,0,sizeof(x))
+#define loop(x,a,n) for(int x=a;x<n;x++)
+#define setinf(x) memset(x,126,sizeof(x))
+#define loope(x,a,n) for(int x=a;x<=n;x++)
+#define sci3(x,y,z) scanf("%d%d%d",&x,&y,&z)
+#define scd3(x,y,z) scanf("%lf%lf%lf",&x,&y,&z)
+#define trall(container, it)\
+for(typeof(container.begin()) it = container.begin(); it != container.end(); it++)
+
+//pushd, loop , loope , ULL , mp , pb , all , set1 , set0 , abs , setinf , trall , sz
+//--------------------------------********************----------------------------------
+
+//--------------------------------********************----------------------------------
+
+vector<int>coin;
+vector<int>coin_amount;
+int n;
+ll dp[55][55][1009];
+ll magic_box(int index,int taken,int sum)
+{
+    if(index>=n)
+    {
+        if(sum==0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    if(sum==0)return 1;
+    if(dp[index][taken][sum]!=-1)return dp[index][taken][sum];
+    ll ret1=0,ret2=0;
+
+    if(sum-coin[index]>=0&&taken<coin_amount[index])
+    {
+        ret1=magic_box(index,taken+1,sum-coin[index])%100000007;
+    }
+    ret2=magic_box(index+1,0,sum)%100000007;
+    return dp[index][taken][sum]=(ret1+ret2)%100000007;
+}
+int main()
+
+{
+    //read("incb.txt");
+    int t,k,value;
+    sci(t);
+
+    loope(c,1,t)
+    {
+        dset(dp);
+        sci2(n,k);
+        loope(i,1,n)
+        {
+            sci(value);
+            coin.pb(value);
+        }
+        loope(i,1,n)
+        {
+            sci(value);
+            coin_amount.pb(value);
+        }
+
+        printf("Case %d: %lld\n",c,magic_box(0,0,k));
+        coin.clear();
+        coin_amount.clear();
+    }
+}

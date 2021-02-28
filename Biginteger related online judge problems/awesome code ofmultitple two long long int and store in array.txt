@@ -1,0 +1,75 @@
+#include<cstdio>
+#include<sstream>
+#include<cstdlib>
+#include<cctype>
+#include<cmath>
+#include<algorithm>
+#include<set>
+#include<queue>
+#include<stack>
+#include<list>
+#include<iostream>
+#include<fstream>
+#include<numeric>
+#include<string>
+#include<vector>
+#include<cstring>
+#include<map>
+#include<iterator>
+#include<iostream>
+#include<cstdio>
+#include<sstream>
+#include<cstdlib>
+#include<cmath>
+using namespace std;
+
+
+int main()
+{
+    long long int  a=2342341323423;
+    long long int b=14232231342;
+    cout<<a*b<<"\n\n";
+    int c[200];
+    long long int c_index=-1;
+    long long int i=0;
+    while(a/10>0)
+    {
+        c[++c_index]=a%10;
+        a=a/10;
+    }
+    c[++c_index]=a%10;
+    long long int temp=0,x;
+    for(int j=0;j<=c_index;j++)
+    {
+        x=c[j]*b+temp;
+        temp=x/10;
+        c[j]=x%10;
+    }
+    while(temp!=0)
+    {
+        c[++c_index]=temp%10;
+        temp=temp/10;
+    }
+    for(int j=c_index;j>=0;j--)
+    {
+        cout<<c[j];
+    }
+}
+
+/*
+
+long long int factorial(long long int n)
+{
+    if(n==1)return 1;
+    return n*factorial(n-1);
+}
+
+int main()
+{
+    cout<<factorial(15);
+}
+
+*/
+
+
+

@@ -1,0 +1,159 @@
+#include<cstdio>
+#include<sstream>
+#include<cstdlib>
+#include<cctype>
+#include<cmath>
+#include<algorithm>
+#include<set>
+#include<queue>
+#include<stack>
+#include<list>
+#include<iostream>
+#include<fstream>
+#include<numeric>
+#include<string>
+#include<vector>
+#include<cstring>
+#include<map>
+#include<iterator>
+using namespace std;
+
+typedef vector<int>vi;
+
+#define endl '\n'
+#define mp make_pair
+#define pb push_back
+#define pi acos(-1.0)
+#define mod 1000000007
+#define ll long long int
+#define dsort(c) sort(all(c))
+#define sci(x) scanf("%d",&x)
+#define scc(x) scanf("%c",&x)
+#define scd(x) scanf("%lf",&x)
+#define sz(x) ((int) (x).size())
+#define all(c) c.begin(), c.end()
+#define ull unsigned long long int
+#define read(x) freopen(x,"r",stdin)
+#define sci2(x,y) scanf("%d%d",&x,&y)
+#define scc2(x,y) scanf("%c%c",&x,&y)
+#define write(x) freopen(x,"w",stdout)
+#define dset(x) memset(x,-1,sizeof(x))
+#define scd2(x,y) scanf("%lf%lf",&x,&y)
+#define dclear(x) memset(x,0,sizeof(x))
+#define loop(x,a,n) for(int x=a;x<n;x++)
+#define setinf(x) memset(x,126,sizeof(x))
+#define loope(x,a,n) for(int x=a;x<=n;x++)
+#define rloope(x,a,n) for(int x=a;x>=n;x--)
+#define sci3(x,y,z) scanf("%d%d%d",&x,&y,&z)
+#define scd3(x,y,z) scanf("%lf%lf%lf",&x,&y,&z)
+#define trall(container, it)\
+for(typeof(container.begin()) it = container.begin(); it != container.end(); it++)
+
+//pushd, loop , loope , ULL , mp , pb , all , set1 , set0 , abs , setinf , trall , sz
+//--------------------------------********************----------------------------------
+
+//--------------------------------********************----------------------------------
+
+
+
+
+string s;
+vector<string>text1;
+vector<string>text2;
+vector<string>textans;
+int text1len;
+int text2len;
+int dp[200][200];
+int magic_box()
+{
+
+    loop(i,0,text1len)dp[i][0]=0;
+    loop(i,0,text2len)dp[0][i]=0;
+    loop(i,1,text2len)
+    {
+        loop(j,1,text1len)
+        {
+            if(text2[i].compare(text1[j])==0)
+            {
+                dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else
+            {
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+
+}
+int main()
+{
+    //read("incb.txt");
+    //write("outcb.txt");
+    while(true)
+    {
+        if(cin.eof())break;
+        text1.pb("nul");
+        text2.pb("nul");
+        dclear(dp);
+        while(cin>>s)
+        {
+            if(s.compare("#")==0)break;
+            text1.pb(s);
+        }
+
+        while(cin>>s)
+        {
+            if(s.compare("#")==0)break;
+            text2.pb(s);
+        }
+        text1len=text1.size();
+        text2len=text2.size();
+        magic_box();
+
+        int currenti=text2len-1;
+        int currentj=text1len-1;
+
+        int len=dp[currenti][currentj];
+
+        while(currenti>=0||currentj>=0)
+        {
+            if(dp[currenti-1][currentj]==dp[currenti][currentj-1]&&dp[currenti][currentj]==dp[currenti-1][currentj-1]+1&&len!=0)
+            {
+                textans.pb(text2[currenti]);
+                currenti--;
+                currentj--;
+                len--;
+            }
+            else
+            {
+                if(dp[currenti-1][currentj]>dp[currenti][currentj-1])
+                {
+                    currenti--;
+                }
+                else
+                {
+                    currentj--;
+                }
+            }
+        }
+
+        for(int i=textans.size()-1;i>=0;i--)
+        {
+            if(i==0)
+            {
+                cout<<textans[i]<<"\n";
+            }
+            else
+            {
+                cout<<textans[i]<<" ";
+            }
+
+        }
+        text1.clear();
+        text2.clear();
+        textans.clear();
+
+    }
+
+}
+
